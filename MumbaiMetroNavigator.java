@@ -1,7 +1,7 @@
 import java.util.*;
 
 class MumbaiMetroNavigator {
-    // Station list
+   
     private static final String[] STATIONS = {
         "Versova", "DN Nagar", "Azad Nagar", "Andheri", "Western Express Highway",
         "Chakala", "Marol Naka", "Airport Road", "Saki Naka", "Asalpha",
@@ -29,23 +29,17 @@ class MumbaiMetroNavigator {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 0}
     };
 
-    // Cost per kilometer (in INR)
+   
     private static final int COST_PER_KM = 10;
-
-    // Time per kilometer (in minutes)
     private static final int TIME_PER_KM = 2;
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-
-        // Display available stations
         System.out.println("Mumbai Metro Navigator");
         System.out.println("Available Stations:");
         for (int i = 0; i < NUM_STATIONS; i++) {
             System.out.println((i + 1) + ". " + STATIONS[i]);
         }
-
-        // Get user input
         System.out.print("Enter the source station number: ");
         int source = scanner.nextInt() - 1;
 
@@ -56,11 +50,7 @@ class MumbaiMetroNavigator {
             System.out.println("Invalid station selection. Please try again.");
             return;
         }
-
-        // Calculate shortest path
         DijkstraResult result = dijkstra(source, destination);
-
-        // Display results
         System.out.println("\nShortest Path: " + String.join(" -> ", result.path));
         System.out.println("Shortest Distance: " + result.distance + " km");
         System.out.println("Total Cost: ₹" + result.distance * COST_PER_KM);
@@ -68,8 +58,6 @@ class MumbaiMetroNavigator {
 
         scanner.close();
     }
-
-    // Dijkstra's algorithm
     private static DijkstraResult dijkstra(int src, int dest) {
         int[] distances = new int[NUM_STATIONS];
         boolean[] visited = new boolean[NUM_STATIONS];
@@ -95,8 +83,6 @@ class MumbaiMetroNavigator {
 
         return buildResult(src, dest, distances, previous);
     }
-
-    // Find the station with the minimum distance
     private static int findMinDistance(int[] distances, boolean[] visited) {
         int min = Integer.MAX_VALUE, minIndex = -1;
 
@@ -109,8 +95,6 @@ class MumbaiMetroNavigator {
 
         return minIndex;
     }
-
-    // Build the result object
     private static DijkstraResult buildResult(int src, int dest, int[] distances, int[] previous) {
         List<String> path = new ArrayList<>();
         int current = dest;
@@ -122,8 +106,6 @@ class MumbaiMetroNavigator {
 
         return new DijkstraResult(path, distances[dest]);
     }
-
-    // Result class to store Dijkstra output
     private static class DijkstraResult {
         List<String> path;
         int distance;
